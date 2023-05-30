@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Udostępnij post{% endblock %}
+
+{% block content %}
+    {% if sent %}
+        <h1>Wiadomość została wysłana</h1>
+        <p>
+            Wysyłanie posta "{{ post.title }}" do {{ form.cleaned_data.to }} zakończyło się sukcesem.
+        </p>
+        <a href="{{ post.get_absolute_url }}">Powrót</a>
+    {% else %}
+        <h1>Udostępnij "{{ post.title }}" przez e-mail</h1>
+        <a href="{{ post.get_absolute_url }}">Powrót</a>
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Wyślij wiadomośc e-mail">
+        </form>
+    {% endif %}
+{% endblock %}
