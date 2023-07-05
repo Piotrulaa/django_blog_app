@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Post, Comment
 # from django.views.generic import ListView
-from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from django.conf import settings
 from taggit.models import Tag
 from django.db.models import Count
+
+from .forms import EmailPostForm, CommentForm
+from .models import Post, Comment
 
 
 # class PostListView(ListView):
