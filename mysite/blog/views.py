@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from taggit.models import Tag
 from django.db.models import Count
+from django.http import HttpResponse, HttpRequest
 
 from .forms import EmailPostForm, CommentForm
 from .models import Post, Comment
@@ -17,7 +18,7 @@ from .models import Post, Comment
 #     template_name = "blog/post/list.html"
 
 
-def post_list(request, tag_slug=None):
+def post_list(request: HttpRequest, tag_slug: str = None) -> HttpResponse:
     object_list = Post.published.all()
     tag = None
     if tag_slug:
@@ -44,7 +45,7 @@ def post_list(request, tag_slug=None):
     )
 
 
-def post_share(request, post_id):
+def post_share(request: HttpRequest, post_id: int) -> HttpResponse:
     post = get_object_or_404(Post, id=post_id, status="published")
     sent = False
     if request.method == "POST":
@@ -74,7 +75,7 @@ def post_share(request, post_id):
     )
 
 
-def post_detail(request, year, month, day, post):
+def post_detail(request: HttpRequest, year: int, month: int, day: int, post: str) -> HttpResponse:
     post = get_object_or_404(
         Post,
         slug=post,
